@@ -1,7 +1,7 @@
 export default function createErrorLog({ initialList }) {
   const listeners = new Set();
 
-  function suscribe(listener) {
+  function subscribe(listener) {
     listeners.add(listener);
     listener(copyObjectList(initialList));
   }
@@ -12,7 +12,7 @@ export default function createErrorLog({ initialList }) {
   }
 
   return {
-    suscribe,
+    subscribe,
     setErrorList,
   };
 }

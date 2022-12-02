@@ -16,7 +16,7 @@ describe("Error Log Test", () => {
       },
     ];
     const errorLog = createErrorLog({ initialList });
-    errorLog.suscribe(logListener);
+    errorLog.subscribe(logListener);
     expect(list).to.deep.equal([
       {
         fieldName: "First Name",
@@ -49,13 +49,13 @@ describe("Error Log Test", () => {
 
     const initialList = [{ fieldName: "first", message: "error" }];
     const errorLog = createErrorLog({ initialList });
-    errorLog.suscribe(listenerOne);
-    errorLog.suscribe(listener);
+    errorLog.subscribe(listenerOne);
+    errorLog.subscribe(listener);
 
     const secondList = [{ fieldName: "second", message: "error" }];
     errorLog.setErrorList(secondList);
 
-    errorLog.suscribe(listenerTwo);
+    errorLog.subscribe(listenerTwo);
 
     expect(stringErrors).to.equal("seconderrorseconderror");
     expect(list).to.deep.equal(secondList);
