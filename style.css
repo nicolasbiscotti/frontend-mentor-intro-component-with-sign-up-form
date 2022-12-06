@@ -1,0 +1,102 @@
+:root {
+  --color-neutral-800: hsl(249, 10%, 26%);
+  --color-neutral-500: hsl(248, 32%, 49%);
+  --color-neutral-300: hsl(246, 25%, 77%);
+  --color-neutral-200: hsl(240, 25%, 95%);
+  --color-neutral-100: hsl(240, 25%, 100%);
+  --color-red-500: hsl(0, 100%, 74%);
+  --color-green: hsl(154, 59%, 51%);
+
+  --font-family-base: "Poppins", sans-serif;
+
+  --font-weigth-bold: 700;
+  --font-weigth-semi-bold: 600;
+  --font-weigth-medium: 500;
+  --font-weigth-regular: 400;
+
+  --font-size-regular: 1rem;
+}
+/*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* General Styling */
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-regular);
+  color: var(--color-neutral-200);
+
+  background-color: var(--color-red-500);
+  background-image: url(./images/bg-intro-mobile.png);
+}
+h1 {
+  color: var(--color-neutral-100);
+  font-size: calc(var(--font-size-regular) * 1.675);
+  font-weight: var(--font-weigth-bold);
+}
+p {
+  font-weight: var(--font-weigth-medium);
+}
+main {
+  margin: 3rem 0;
+}
+
+/* Utilities */
+
+.grid {
+  display: grid;
+}
+
+.grid-group {
+  display: grid;
+  padding: 1rem;
+  gap: 2rem;
+  place-content: center;
+}
+
+/* Custom Styling */
+.intro {
+  text-align: center;
+}
+
+
