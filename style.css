@@ -5,6 +5,7 @@
   --color-neutral-200: hsl(240, 25%, 95%);
   --color-neutral-100: hsl(240, 25%, 100%);
   --color-red-500: hsl(0, 100%, 74%);
+  --color-red-700: hsl(0, 100%, 68%);
   --color-green-ligth: hsl(154, 59%, 66%);
   --color-green: hsl(154, 59%, 51%);
   --color-green-shadow: hsl(154, 59%, 46%);
@@ -198,4 +199,15 @@ main {
 }
 .signup__button:is(:focus) {
   outline: var(--color-green-shadow) 2px solid;
+}
+
+/* signup term and services */
+.signup__terms-and-services {
+  text-align: center;
+  font-size: 0.75em;
+}
+.signup__terms-and-services a {
+  text-decoration: none;
+  color: var(--color-red-700);
+  font-weight: var(--font-weigth-semi-bold);
 }
