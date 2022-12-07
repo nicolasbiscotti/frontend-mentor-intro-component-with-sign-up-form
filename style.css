@@ -5,6 +5,7 @@
   --color-neutral-200: hsl(240, 25%, 95%);
   --color-neutral-100: hsl(240, 25%, 100%);
   --color-red-500: hsl(0, 100%, 74%);
+  --color-green-ligth: hsl(154, 59%, 55%); 
   --color-green: hsl(154, 59%, 51%);
 
   --font-family-base: "Poppins", sans-serif;
@@ -44,12 +45,12 @@ svg {
   display: block;
   max-width: 100%;
 }
-input,
+/* input,
 button,
 textarea,
 select {
   font: inherit;
-}
+} */
 p,
 h1,
 h2,
@@ -63,7 +64,6 @@ h6 {
 /* General Styling */
 body {
   font-family: var(--font-family-base);
-  font-size: var(--font-size-regular);
   color: var(--color-neutral-200);
 
   background-color: var(--color-red-500);
@@ -78,7 +78,9 @@ p {
   font-weight: var(--font-weigth-medium);
 }
 main {
-  margin: 3rem 0;
+  --content-space: 1rem;
+
+  margin: 4rem 0;
 }
 
 /* Utilities */
@@ -86,17 +88,23 @@ main {
 .grid {
   display: grid;
 }
-
 .grid-group {
   display: grid;
-  padding: 1rem;
   gap: 2rem;
   place-content: center;
+}
+.shadow {
+  box-shadow: 0 0.5rem rgba(0, 0, 0, 0.2);
 }
 
 /* Custom Styling */
 .intro {
+  padding: var(--content-space);
   text-align: center;
+}
+
+.signup {
+  padding: var(--content-space);
 }
 
 .signup__title {
@@ -105,10 +113,54 @@ main {
 
   padding: 1rem 4rem;
   border-radius: 0.375rem;
-  box-shadow: 0 0.5rem rgba(80, 80, 80, 0.3);
 
   background-color: var(--color-neutral-500);
 }
 .signup__title span {
   font-weight: var(--font-weigth-regular);
+}
+
+.signup__form {
+  gap: var(--content-space);
+  padding: var(--content-space);
+
+  color: var(--color-neutral-800);
+
+  border-radius: 0.5rem;
+  background-color: var(--color-neutral-100);
+}
+.signup__form-field {
+  --border-width: 1px;
+  --field-height: 1.5rem;
+  --content-space: 1rem;
+  --radius: 0.5rem;
+
+  position: relative;
+}
+.signup__placeholder {
+  line-height: var(--field-height);
+  padding: var(--content-space);
+  position: absolute;
+  border: var(--border-width) solid transparent;
+}
+.signup__input {
+  line-height: var(--field-height);
+  padding: var(--content-space);
+  border: var(--border-width) solid var(--color-neutral-300);
+  border-radius: var(--radius);
+}
+.signup__input:is(:focus) {
+  border: var(--border-width) solid var(--color-neutral-500);
+}
+.signup__button {
+  color: var(--color-neutral-200);
+  font-size: 1em;
+  text-transform: uppercase;
+
+  border: 0;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem var(--color-green);
+  padding: 1rem;
+
+  background-color: var(--color-green-ligth);
 }
