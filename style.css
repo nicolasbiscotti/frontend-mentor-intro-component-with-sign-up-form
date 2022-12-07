@@ -47,12 +47,12 @@ svg {
   display: block;
   max-width: 100%;
 }
-/* input,
+input,
 button,
 textarea,
 select {
   font: inherit;
-} */
+}
 p,
 h1,
 h2,
@@ -153,9 +153,8 @@ main {
 /* placeholder */
 .signup__placeholder {
   font-weight: var(--font-weigth-medium);
-  line-height: var(--field-height);
 
-  opacity: 0.9;
+  opacity: 0.85;
 
   border: var(--border-width) solid transparent;
   padding: var(--content-space);
@@ -164,13 +163,12 @@ main {
 }
 /* input box*/
 .signup__input {
-  font-family: var(--font-family-base);
   font-weight: var(--font-weigth-medium);
-  line-height: var(--field-height);
 
   border: var(--border-width) solid var(--color-neutral-300);
   border-radius: var(--radius);
   padding: var(--content-space);
+  width: 100%;
 }
 .signup__input:focus {
   outline-width: calc(var(--border-width) * 2);
