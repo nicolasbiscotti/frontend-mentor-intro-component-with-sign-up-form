@@ -115,6 +115,9 @@ main {
 }
 
 .signup {
+  --signup-warning-color: var(--color-red-700);
+  --signup-font-small: 0.75em;
+
   padding: var(--content-space);
 }
 
@@ -141,15 +144,28 @@ main {
   border-radius: 0.5rem;
   background-color: var(--color-neutral-100);
 }
+
 /* form field */
-.signup__form-field {
+.signup__field {
   --border-width: 1px;
-  --field-height: 1.5rem;
-  --content-space: 1rem;
+  --field-padding: 1rem;
   --radius: 0.5rem;
 
   position: relative;
 }
+.signup__field[data-icon="error"]::before {
+  position: absolute;
+  right: var(--field-padding);
+  top: var(--field-padding);
+
+  content: "";
+
+  width: 24px;
+  height: 24px;
+
+  background-image: url("./images/icon-error.svg");
+}
+
 /* placeholder */
 .signup__placeholder {
   font-weight: var(--font-weigth-medium);
@@ -157,23 +173,50 @@ main {
   opacity: 0.85;
 
   border: var(--border-width) solid transparent;
-  padding: var(--content-space);
+  padding: var(--field-padding);
 
   position: absolute;
 }
 /* input box*/
 .signup__input {
+  --input-border-normal: var(--border-width) solid var(--color-neutral-300);
+  --input-border-invalid: calc(var(--border-width) * 2) solid
+    var(--signup-warning-color);
+
   font-weight: var(--font-weigth-medium);
 
-  border: var(--border-width) solid var(--color-neutral-300);
-  border-radius: var(--radius);
-  padding: var(--content-space);
+  padding: var(--field-padding);
   width: 100%;
+
+  border-radius: var(--radius);
+  border: var(--input-border-normal);
+}
+.signup__field[data-icon="error"] .signup__input {
+  color: var(--signup-warning-color);
+  border: var(--input-border-invalid);
+}
+.signup__field[data-icon="error"] .signup__input:focus {
+  outline: none;
 }
 .signup__input:focus {
   outline-width: calc(var(--border-width) * 2);
   outline-style: solid;
   outline-color: var(--color-neutral-500);
+  color: var(--color-neutral-800);
+  border: none;
+}
+/* help text */
+.signup__field[data-icon="error"] .signup__help-text {
+  display: block;
+
+  color: var(--signup-warning-color);
+  font-size: var(--signup-font-small);
+  text-align: right;
+
+  margin-top: 0.25rem;
+}
+.signup__help-text {
+  display: none;
 }
 
 /* signup button */
@@ -181,7 +224,6 @@ main {
   --content-padding: 1rem;
 
   color: var(--color-neutral-200);
-  font-size: 1em;
   font-weight: var(--font-weigth-medium);
   letter-spacing: 0.075em;
   text-transform: uppercase;
@@ -201,11 +243,14 @@ main {
 
 /* signup term and services */
 .signup__terms-and-services {
+  font-size: var(--signup-font-small);
   text-align: center;
-  font-size: 0.75em;
+}
+.signup__terms-and-services span {
+  opacity: 0.5;
 }
 .signup__terms-and-services a {
-  text-decoration: none;
-  color: var(--color-red-700);
+  color: var(--signup-warning-color);
   font-weight: var(--font-weigth-semi-bold);
+  text-decoration: none;
 }
