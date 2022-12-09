@@ -39,23 +39,18 @@
     <main class="grid-group">
       <template id="intro-root">
         <article class="intro grid-group">
-          <h1>
-            <slot name="title">The title</slot>
-          </h1>
-
-          <p class="intro__paragraph">
-            <slot name="description">Some description...</slot>
-          </p>
+          <slot name="title">The title</slot>
+          <slot name="description">Some description...</slot>
         </article>
       </template>
 
       <intro-wc>
-        <span slot="title">Learn to code by watching others</span>
-        <span slot="description">
+        <h1 slot="title">Learn to code by watching others</h1>
+        <p slot="description" class="intro__paragraph">
           See how experienced developers solve problems in real-time. Watching
           scripted tutorials is great, but understanding how developers think is
           invaluable.
-        </span>
+        </p>
       </intro-wc>
 
       <template id="form-field-root">
