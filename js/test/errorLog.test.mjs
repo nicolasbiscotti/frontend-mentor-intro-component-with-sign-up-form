@@ -6,9 +6,11 @@ describe("Error Log Test", () => {
 
   it("should pass a copy of the initialList to logListener", () => {
     let list;
+    
     function logListener(errorList) {
       list = errorList;
     }
+    
     const initialList = [
       {
         fieldName: "First Name",
@@ -17,6 +19,7 @@ describe("Error Log Test", () => {
     ];
     const errorLog = createErrorLog({ initialList });
     errorLog.subscribe(logListener);
+    
     expect(list).to.deep.equal([
       {
         fieldName: "First Name",
@@ -54,7 +57,6 @@ describe("Error Log Test", () => {
 
     const secondList = [{ fieldName: "second", message: "error" }];
     errorLog.setErrorList(secondList);
-
     errorLog.subscribe(listenerTwo);
 
     expect(stringErrors).to.equal("seconderrorseconderror");

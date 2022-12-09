@@ -1,0 +1,21 @@
+/* General Styling */
+body {
+  font-family: var(--font-family-base);
+  color: var(--color-neutral-200);
+
+  background-color: var(--color-red-500);
+  background-image: url(./images/bg-intro-mobile.png);
+}
+h1 {
+  color: var(--color-neutral-100);
+  font-size: calc(var(--font-size-regular) * 1.675);
+  font-weight: var(--font-weigth-bold);
+}
+p {
+  font-weight: var(--font-weigth-medium);
+}
+main {
+  --content-space: 1rem;
+
+  margin: 4rem 0;
+}

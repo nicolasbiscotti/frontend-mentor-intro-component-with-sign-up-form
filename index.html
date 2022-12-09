@@ -37,15 +37,57 @@
   </head>
   <body>
     <main class="grid-group">
-      <article class="intro grid-group">
-        <h1>Learn to code by watching others</h1>
+      <template id="intro-root">
+        <article class="intro grid-group">
+          <h1>
+            <slot name="title">The title</slot>
+          </h1>
 
-        <p class="intro__paragraph">
+          <p class="intro__paragraph">
+            <slot name="description">Some description...</slot>
+          </p>
+        </article>
+      </template>
+
+      <intro-wc>
+        <span slot="title">Learn to code by watching others</span>
+        <span slot="description">
           See how experienced developers solve problems in real-time. Watching
           scripted tutorials is great, but understanding how developers think is
           invaluable.
-        </p>
-      </article>
+        </span>
+      </intro-wc>
+
+      <template id="form-field-root">
+        <div class="signup__field grid invalid" data-icon="">
+          <label class="signup__placeholder" for="firstName">First Name</label>
+          <input
+            class="signup__input"
+            type="text"
+            name="firstName"
+            id="firstName"
+            required
+            pattern="\w{1,16}"
+          />
+          <p class="signup__help-text">
+            <em> The field cannot be empty </em>
+          </p>
+        </div>
+      </template>
+
+      <form-field
+        fieldName="firstName"
+        placeholderText="First Name"
+        fieldType="text"
+        fieldHelpText="The field cannot be empty"
+      ></form-field>
+
+      <form-field
+        fieldName="email"
+        placeholderText="Email"
+        fieldType="email"
+        fieldHelpText="The field cannot be empty"
+      ></form-field>
 
       <article class="signup grid-group">
         <h1 class="signup__title shadow">
@@ -136,6 +178,6 @@
       </p>
     </footer>
 
-    <script type="module" src="./js/checkForm.mjs"></script>
+    <script type="module" src="./main.mjs"></script>
   </body>
 </html>

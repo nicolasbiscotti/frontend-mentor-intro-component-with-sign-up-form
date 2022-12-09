@@ -1,0 +1,21 @@
+/* Utilities */
+
+.grid {
+  display: grid;
+}
+.grid-group {
+  display: grid;
+  gap: 2rem;
+  place-content: center;
+}
+.shadow {
+  box-shadow: 0 0.5rem rgba(0, 0, 0, 0.2);
+}
+
+.button {
+  cursor: pointer;
+
+  border: 0;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
