@@ -10,12 +10,16 @@ export default class Intro extends HTMLElement {
     let intro = document.querySelector("#intro-root");
     let introContent = intro.content;
 
-    const shadow = this.attachShadow({ mode: "open" });
-    shadow.append(reset, general, utilities, style);
-    shadow.appendChild(introContent.cloneNode(true));
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.append(reset, general, utilities, style);
+    this.shadowRoot.appendChild(introContent.cloneNode(true));
   }
 
   connectedCallback() {
+
+    const slot = this.shadowRoot.querySelector("article").querySelector("slot");
+    console.log(slot);
+    
     // const shadow = this.attachShadow({ mode: "open" });
     // const article = document.createElement("article");
     // article.setAttribute("class", "intro grid-group");

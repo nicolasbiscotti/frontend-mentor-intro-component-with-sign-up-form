@@ -37,52 +37,15 @@
   </head>
   <body>
     <main class="grid-group">
-      <template id="intro-root">
-        <article class="intro grid-group">
-          <slot name="title">The title</slot>
-          <slot name="description">Some description...</slot>
-        </article>
-      </template>
+      <article class="intro grid-group">
+        <h1>Learn to code by watching others</h1>
 
-      <intro-wc>
-        <h1 slot="title">Learn to code by watching others</h1>
-        <p slot="description" class="intro__paragraph">
+        <p class="intro__paragraph">
           See how experienced developers solve problems in real-time. Watching
           scripted tutorials is great, but understanding how developers think is
           invaluable.
         </p>
-      </intro-wc>
-
-      <template id="form-field-root">
-        <div class="signup__field grid invalid" data-icon="">
-          <label class="signup__placeholder" for="firstName">First Name</label>
-          <input
-            class="signup__input"
-            type="text"
-            name="firstName"
-            id="firstName"
-            required
-            pattern="\w{1,16}"
-          />
-          <p class="signup__help-text">
-            <em> The field cannot be empty </em>
-          </p>
-        </div>
-      </template>
-
-      <form-field
-        fieldName="firstName"
-        placeholderText="First Name"
-        fieldType="text"
-        fieldHelpText="The field cannot be empty"
-      ></form-field>
-
-      <form-field
-        fieldName="email"
-        placeholderText="Email"
-        fieldType="email"
-        fieldHelpText="The field cannot be empty"
-      ></form-field>
+      </article>
 
       <article class="signup grid-group">
         <h1 class="signup__title shadow">
@@ -91,69 +54,6 @@
         </h1>
 
         <form action="#" class="signup__form grid-group shadow">
-          <div class="signup__field grid invalid" data-icon="">
-            <label class="signup__placeholder" for="firstName"
-              >First Name</label
-            >
-            <input
-              class="signup__input"
-              type="text"
-              name="firstName"
-              id="firstName"
-              required
-              pattern="\w{1,16}"
-            />
-            <p class="signup__help-text">
-              <em> The field cannot be empty </em>
-            </p>
-          </div>
-
-          <div class="signup__field grid" data-icon="">
-            <label class="signup__placeholder" for="lastName">Last Name</label>
-            <input
-              class="signup__input"
-              type="text"
-              name="lastName"
-              id="lastName"
-              required
-              pattern="\w{1,16}"
-            />
-            <p class="signup__help-text">
-              <em> The field cannot be empty </em>
-            </p>
-          </div>
-
-          <div class="signup__field grid" data-icon="">
-            <label class="signup__placeholder" for="emailAddres"
-              >Email Address</label
-            >
-            <input
-              class="signup__input"
-              type="email"
-              name="emailAddres"
-              id="emailAddres"
-              required
-            />
-            <p class="signup__help-text">
-              <em> The field cannot be empty </em>
-            </p>
-          </div>
-
-          <div class="signup__field grid" data-icon="">
-            <label class="signup__placeholder" for="password">Password</label>
-            <input
-              class="signup__input"
-              type="password"
-              name="password"
-              id="password"
-              required
-              pattern="\w{1,16}"
-            />
-            <p class="signup__help-text">
-              <em> The field cannot be empty </em>
-            </p>
-          </div>
-
           <button class="signup__button button">Claim your free trial</button>
 
           <p class="signup__terms-and-services">
@@ -172,6 +72,20 @@
         >. Coded by <a href="#">Your Name Here</a>.
       </p>
     </footer>
+
+    <template id="input-group">
+      <div class="signup__field grid" data-icon="">
+        <label class="signup__placeholder">
+          <!-- name to show here -->
+        </label>
+        <input class="signup__input" />
+        <p class="signup__help-text">
+          <em>
+            <!-- error message here -->
+          </em>
+        </p>
+      </div>
+    </template>
 
     <script type="module" src="./main.mjs"></script>
   </body>
