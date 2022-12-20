@@ -3,92 +3,70 @@ import createErrorLog from "./js/errorLog.mjs";
 import createField from "./js/field.mjs";
 
 const errorLog = createErrorLog({ initialList: [] });
-errorLog.subscribe((errorList) => console.log(errorList));
+errorLog.subscribe((errorList) =>
+  console.log(`errorList ${JSON.stringify(errorList)}`)
+);
 
 const form = document.querySelector("form");
+const formFields = [];
 const submitButton = form.querySelector("button");
 const inputGroupTemplate = document.querySelector("#input-group");
 
 submitButton.addEventListener("click", (e) => {
   e.preventDefault();
   checkForm({
-    formFields: [
-      firstName.model.getState(),
-      lastName.model.getState(),
-      email.model.getState(),
-      password.model.getState(),
-    ],
+    formFields: formFields.map((field) => field.getState()),
     onFailure: errorLog.setErrorList,
+    onSuccess: () => {},
   });
 });
 
 const firstName = {
   name: "firstName",
-  nameToShow: "First Name",
+  placeHolder: "First Name",
   type: "text",
-
-  model: createField({
-    initialState: {
-      value: "",
-      name: "First Name",
-      formatHaveToBeChecked: false,
-    },
-  }),
+  value: "",
+  formatHaveToBeChecked: false,
+  isValidFormat: () => {},
 };
 
 const lastName = {
   name: "lastName",
-  nameToShow: "Last Name",
+  placeHolder: "Last Name",
   type: "text",
-  required: true,
-  pattern: "w{1,16}",
-  model: createField({
-    initialState: {
-      value: "",
-      name: "Last Name",
-      formatHaveToBeChecked: false,
-    },
-  }),
+  value: "",
+  formatHaveToBeChecked: false,
+  isValidFormat: () => {},
 };
 
 const email = {
   name: "emailAddres",
-  nameToShow: "Email Address",
+  placeHolder: "Email Address",
   type: "email",
-  required: true,
-  pattern: "w{1,16}",
-  model: createField({
-    initialState: {
-      value: "",
-      name: "Email Address",
-      formatHaveToBeChecked: false,
-    },
-  }),
+  value: "",
+  formatHaveToBeChecked: true,
+  isValidFormat: () => false,
 };
 
 const password = {
   name: "password",
-  nameToShow: "Password",
+  placeHolder: "Password",
   type: "password",
-  required: true,
-  pattern: "w{1,16}",
-  model: createField({
-    initialState: {
-      value: "",
-      name: "Password",
-      formatHaveToBeChecked: false,
-    },
-  }),
+  value: "",
+  formatHaveToBeChecked: false,
+  isValidFormat: () => {},
 };
 
 insertInput([firstName, lastName, email, password]);
 
 function insertInput(inputs) {
   for (let i = inputs.length - 1; i >= 0; i--) {
-    form.insertBefore(
-      createInputGroup(inputGroupTemplate, inputs[i]),
-      form.firstChild
+    const { inputGroup, field } = createInputGroup(
+      inputGroupTemplate,
+      inputs[i]
     );
+    formFields.push(field);
+    form.insertBefore(inputGroup, form.firstChild);
   }
 }
 
@@ -97,8 +75,10 @@ function createInputGroup(template, config) {
   const container = inputGroup.querySelector("div");
   const errorMessage = inputGroup.querySelector("em");
 
+  const field = createField({ initialState: config });
+
   const placeHolder = inputGroup.querySelector("label");
-  configureElement(placeHolder, { for: config.name }, config.nameToShow);
+  configureElement(placeHolder, { for: config.name }, config.placeHolder);
   let placeHolderVisible = true;
 
   const input = inputGroup.querySelector("input");
@@ -106,48 +86,55 @@ function createInputGroup(template, config) {
     type: config.type,
     name: config.name,
     id: config.name,
-    required: config.required,
-    pattern: config.pattern,
   });
 
-  if (config.model !== undefined) {
-    input.addEventListener("keyup", () => {
-      config.model.setProp(input.value, () => "value");
-    });
-    config.model.subscribe(
-      (value) => {
-        if (placeHolderVisible && value.length > 0) {
-          placeHolderVisible = false;
-          container.removeChild(placeHolder);
-        } else if (!placeHolderVisible && value.length === 0) {
-          placeHolderVisible = true;
-          container.appendChild(placeHolder);
-        }
-      },
-      () => "value"
-    );
-  }
+  input.addEventListener("keyup", () => {
+    hideError();
+    field.setProp(input.value, () => "value");
+  });
+
+  field.subscribe(
+    (value) => (value.length > 0 ? hidePlaceHolder() : showPlaceHolder()),
+    () => "value"
+  );
 
   errorLog.subscribe((errorList) => {
-    let description = false;
-    for (const error of errorList) {
-      if (error.name === config.nameToShow) {
-        description = error.description;
-      }
-    }
-    if (!!description) {
-      if (placeHolderVisible) {
-        container.removeChild(placeHolder);
-        placeHolderVisible = false;
-      }
-      errorMessage.textContent = description;
-      container.dataset.icon = "error";
-    } else {
-      container.dataset.icon = "";
-    }
+    showError(getErrorMessageFor(config.name, errorList));
   });
 
-  return inputGroup;
+  function showError(message) {
+    if (!!message) {
+      hidePlaceHolder();
+      errorMessage.textContent = message;
+      container.dataset.icon = "error";
+    }
+  }
+
+  function hideError() {
+    container.dataset.icon = "";
+  }
+
+  function getErrorMessageFor(fieldName, errorList) {
+    let message = "";
+    for (const error of errorList) {
+      if (error.name === fieldName) {
+        message = error.description;
+      }
+    }
+    return message;
+  }
+
+  function showPlaceHolder() {
+    placeHolderVisible = true;
+    container.appendChild(placeHolder);
+  }
+
+  function hidePlaceHolder() {
+    placeHolderVisible && container.removeChild(placeHolder);
+    placeHolderVisible = false;
+  }
+
+  return { inputGroup, field };
 }
 
 function configureElement(element, attributes, textContent) {

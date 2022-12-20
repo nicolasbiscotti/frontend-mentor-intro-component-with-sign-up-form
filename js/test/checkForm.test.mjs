@@ -10,13 +10,18 @@ describe("Check Form Test", () => {
     }
     checkForm({
       formFields: [
-        { name: "First Name", value: "", formatHaveToBeChecked: false },
+        {
+          name: "fierName",
+          value: "",
+          placeHolder: "First Name",
+          formatHaveToBeChecked: false,
+        },
       ],
       onSuccess: () => {},
       onFailure,
     });
     expect(list).to.deep.equal([
-      { name: "First Name", description: "cannot be empty" },
+      { name: "fierName", description: "First Name cannot be empty" },
     ]);
   });
 
@@ -27,16 +32,31 @@ describe("Check Form Test", () => {
     }
     checkForm({
       formFields: [
-        { name: "First Name", value: "", formatHaveToBeChecked: false },
-        { name: "Last Name", value: "", formatHaveToBeChecked: false },
-        { name: "Password", value: "1234", formatHaveToBeChecked: false },
+        {
+          name: "firstName",
+          placeHolder: "First Name",
+          value: "",
+          formatHaveToBeChecked: false,
+        },
+        {
+          name: "lastName",
+          placeHolder: "Last Name",
+          value: "",
+          formatHaveToBeChecked: false,
+        },
+        {
+          name: "password",
+          placeHolder: "Password",
+          value: "1234",
+          formatHaveToBeChecked: false,
+        },
       ],
       onSuccess: () => {},
       onFailure,
     });
     expect(list).to.deep.equal([
-      { name: "First Name", description: "cannot be empty" },
-      { name: "Last Name", description: "cannot be empty" },
+      { name: "firstName", description: "First Name cannot be empty" },
+      { name: "lastName", description: "Last Name cannot be empty" },
     ]);
   });
 

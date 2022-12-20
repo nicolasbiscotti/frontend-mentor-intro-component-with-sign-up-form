@@ -87,4 +87,27 @@ describe("Field Test", () => {
 
     expect(field.getState(() => "name")).to.equal("Email");
   });
+
+  it("should call each listener", () => {
+    let count = 0;
+    function listenerOne() {
+      count++;
+    }
+    function listenerTwo() {
+      count++;
+    }
+    const initialState = {
+      name: "Email",
+      value: "name",
+      formatHaveToBeChecked: true,
+      isValidFormat: () => {},
+    };
+    const field = createField({ initialState });
+    field.subscribe(listenerOne, () => "value");
+    field.subscribe(listenerTwo, () => "value");
+
+    field.setProp("nico@gmail.com", () => "value");
+
+    expect(count).to.equal(4);
+  });
 });

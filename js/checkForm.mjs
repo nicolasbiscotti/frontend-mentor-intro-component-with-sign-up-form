@@ -27,7 +27,7 @@ function hasAnInvalidFormat(field) {
 function emptyErrorOf(field) {
   return {
     name: field.name,
-    description: "cannot be empty",
+    description: `${field.placeHolder} cannot be empty`,
   };
 }
 function formatErrorOf(field) {
