@@ -1,15 +1,39 @@
+import checkForm from "./js/checkForm.mjs";
+import createErrorLog from "./js/errorLog.mjs";
 import createField from "./js/field.mjs";
 
+const errorLog = createErrorLog({ initialList: [] });
+errorLog.subscribe((errorList) => console.log(errorList));
+
 const form = document.querySelector("form");
+const submitButton = form.querySelector("button");
 const inputGroupTemplate = document.querySelector("#input-group");
+
+submitButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  checkForm({
+    formFields: [
+      firstName.model.getState(),
+      lastName.model.getState(),
+      email.model.getState(),
+      password.model.getState(),
+    ],
+    onFailure: errorLog.setErrorList,
+  });
+});
 
 const firstName = {
   name: "firstName",
   nameToShow: "First Name",
   type: "text",
-  required: "",
-  pattern: "w{1,4}",
-  model: createField({ initialState: { value: "" } }),
+
+  model: createField({
+    initialState: {
+      value: "",
+      name: "First Name",
+      formatHaveToBeChecked: false,
+    },
+  }),
 };
 
 const lastName = {
@@ -18,6 +42,13 @@ const lastName = {
   type: "text",
   required: true,
   pattern: "w{1,16}",
+  model: createField({
+    initialState: {
+      value: "",
+      name: "Last Name",
+      formatHaveToBeChecked: false,
+    },
+  }),
 };
 
 const email = {
@@ -26,6 +57,13 @@ const email = {
   type: "email",
   required: true,
   pattern: "w{1,16}",
+  model: createField({
+    initialState: {
+      value: "",
+      name: "Email Address",
+      formatHaveToBeChecked: false,
+    },
+  }),
 };
 
 const password = {
@@ -34,6 +72,13 @@ const password = {
   type: "password",
   required: true,
   pattern: "w{1,16}",
+  model: createField({
+    initialState: {
+      value: "",
+      name: "Password",
+      formatHaveToBeChecked: false,
+    },
+  }),
 };
 
 insertInput([firstName, lastName, email, password]);
@@ -50,6 +95,7 @@ function insertInput(inputs) {
 function createInputGroup(template, config) {
   const inputGroup = template.content.cloneNode(true);
   const container = inputGroup.querySelector("div");
+  const errorMessage = inputGroup.querySelector("em");
 
   const placeHolder = inputGroup.querySelector("label");
   configureElement(placeHolder, { for: config.name }, config.nameToShow);
@@ -65,9 +111,9 @@ function createInputGroup(template, config) {
   });
 
   if (config.model !== undefined) {
-    input.addEventListener("keyup", () =>
-      config.model.setProp(input.value, () => "value")
-    );
+    input.addEventListener("keyup", () => {
+      config.model.setProp(input.value, () => "value");
+    });
     config.model.subscribe(
       (value) => {
         if (placeHolderVisible && value.length > 0) {
@@ -81,6 +127,25 @@ function createInputGroup(template, config) {
       () => "value"
     );
   }
+
+  errorLog.subscribe((errorList) => {
+    let description = false;
+    for (const error of errorList) {
+      if (error.name === config.nameToShow) {
+        description = error.description;
+      }
+    }
+    if (!!description) {
+      if (placeHolderVisible) {
+        container.removeChild(placeHolder);
+        placeHolderVisible = false;
+      }
+      errorMessage.textContent = description;
+      container.dataset.icon = "error";
+    } else {
+      container.dataset.icon = "";
+    }
+  });
 
   return inputGroup;
 }
